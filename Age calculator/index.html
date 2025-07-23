@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fcfbfb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(22, 117, 241, 0.937);
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 15px 20px rgb(0, 217, 255);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #ff006f;
+      box-shadow: 0 10px 15px rgba(255, 6, 6, 0.705);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #444;
+      font-family: 'Times New Roman', Times, serif;
+      font:bolder;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Age Calculator</h1>
+    
+    <input type="date" id="dob" />
+    <br/>
+    <button onclick="calculateAge()">Calculate Age</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      const dobInput = document.getElementById('dob').value;
+      const result = document.getElementById('result');
+
+      if (!dobInput) {
+        result.textContent = "Please enter your date of birth.";
+        return;
+      }
+
+      const dob = new Date(dobInput);
+      const today = new Date();
+
+      if (dob > today) {
+        result.textContent = "Date of birth cannot be in the future.";
+        return;
+      }
+
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months -= 1;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+      
+
+      result.textContent = `You are ${years} year(s), ${months} month(s), and ${days} day(s) old`;
+    }
+  </script>
+</body>
+</html>
